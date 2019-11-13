@@ -1,0 +1,55 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta name="robots" content="noindex">
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="jquery-ui.css"/>
+  
+    <style type="text/css">
+        .ui-datepicker td.holiday a,.ui-datepicker td.holiday a:hover {
+            background:none #00ff00;
+            border:1px solid #bf5a0c
+        }
+        .ui-datepicker td.absent a,.ui-datepicker td.absent a:hover {
+            background:none #ff0000;
+            border:1px solid #000;
+        }
+    </style>
+  
+  <script type="text/javascript">
+    var holiDays=
+        [
+            [2019,11,01],
+            [2019,11,05],
+            [2019,11,14]
+        ];
+    var absents = [
+            [2019,11,27],
+            [2019,11,24],
+            [2019,11,01]
+        ];
+        
+        $(function() {
+            $("#date").datepicker({beforeShowDay:setHoliDays});
+            function setHoliDays(date) {
+                for (i=0;i<holiDays.length;i++) {
+                    if (date.getFullYear()==holiDays[i][0] && date.getMonth()==holiDays[i][1]-1 && date.getDate()==holiDays[i][2]) {
+                        return[true,'holiday', "Present"];
+                    }
+                    if (date.getFullYear()==absents[i][0] && date.getMonth()==absents[i][1]-1 && date.getDate()==absents[i][2]) {
+                        return[true,'absent', "Absent"];
+                    }
+                };
+                return[true,''];
+            }
+        });
+    </script>
+       
+  </head>
+  <body>
+  <input type="text" id="date"/>
+    
+  </body>
+</html>
